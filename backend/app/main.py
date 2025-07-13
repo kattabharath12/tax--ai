@@ -9,10 +9,10 @@ from sentry_sdk.integrations.sqlalchemy import SqlalchemyIntegration
 import os
 import logging
 
-from app.core.config import settings
-from app.api.api_v1.api import api_router
-from app.core.database import engine
-from app.models import Base
+from core.config import settings
+from api.api_v1.api import api_router
+from core.database import engine
+from models import Base
 
 # Initialize Sentry for error tracking
 if settings.SENTRY_DSN:
