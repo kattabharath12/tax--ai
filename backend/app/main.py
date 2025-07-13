@@ -15,16 +15,16 @@ import logging
 #from models import Base
 
 # Initialize Sentry for error tracking
-if settings.SENTRY_DSN:
-    sentry_sdk.init(
-        dsn=settings.SENTRY_DSN,
-        integrations=[
-            FastApiIntegration(auto_enabling_integrations=False),
-            SqlalchemyIntegration(),
-        ],
-        traces_sample_rate=0.1,
-        environment=settings.ENVIRONMENT,
-    )
+#if settings.SENTRY_DSN:
+ #   sentry_sdk.init(
+  #      dsn=settings.SENTRY_DSN,
+   #     integrations=[
+    #        FastApiIntegration(auto_enabling_integrations=False),
+     #       SqlalchemyIntegration(),
+      #  ],
+       # traces_sample_rate=0.1,
+        #environment=settings.ENVIRONMENT,
+    #)
 
 # Configure logging
 logging.basicConfig(
