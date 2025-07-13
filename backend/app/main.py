@@ -9,58 +9,58 @@ from sentry_sdk.integrations.sqlalchemy import SqlalchemyIntegration
 import os
 import logging
 
-#from .core.config import settings
-#from api.api_v1.api import api_router
-#from core.database import engine
-#from models import Base
+# from .core.config import settings
+# from api.api_v1.api import api_router
+# from core.database import engine
+# from models import Base
 
 # Initialize Sentry for error tracking
-#if settings.SENTRY_DSN:
- #   sentry_sdk.init(
-  #      dsn=settings.SENTRY_DSN,
-   #     integrations=[
-    #        FastApiIntegration(auto_enabling_integrations=False),
-     #       SqlalchemyIntegration(),
-      #  ],
-       # traces_sample_rate=0.1,
-        #environment=settings.ENVIRONMENT,
-    #)
+# if settings.SENTRY_DSN:
+#     sentry_sdk.init(
+#         dsn=settings.SENTRY_DSN,
+#         integrations=[
+#             FastApiIntegration(auto_enabling_integrations=False),
+#             SqlalchemyIntegration(),
+#         ],
+#         traces_sample_rate=0.1,
+#         environment=settings.ENVIRONMENT,
+#     )
 
 # Configure logging
-logging.basicConfig(
-    level=getattr(logging, settings.LOG_LEVEL),
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-)
-logger = logging.getLogger(__name__)
+# logging.basicConfig(
+#     level=getattr(logging, settings.LOG_LEVEL),
+#     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+# )
+# logger = logging.getLogger(__name__)
 
 # Create database tables
-Base.metadata.create_all(bind=engine)
+# Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="Tax Filing API",
     description="Production-ready tax filing application API",
     version="1.0.0",
-    docs_url="/docs" if settings.DEBUG else None,
-    redoc_url="/redoc" if settings.DEBUG else None,
+    docs_url="/docs",
+    redoc_url="/redoc",
 )
 
 # Security middleware
-app.add_middleware(
-    TrustedHostMiddleware,
-    allowed_hosts=["*"] if settings.DEBUG else settings.ALLOWED_HOSTS
-)
+# app.add_middleware(
+#     TrustedHostMiddleware,
+#     allowed_hosts=["*"] if settings.DEBUG else settings.ALLOWED_HOSTS
+# )
 
 # CORS middleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
-    allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE"],
-    allow_headers=["*"],
-)
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=settings.CORS_ORIGINS,
+#     allow_credentials=True,
+#     allow_methods=["GET", "POST", "PUT", "DELETE"],
+#     allow_headers=["*"],
+# )
 
 # Include API router
-app.include_router(api_router, prefix="/api/v1")
+# app.include_router(api_router, prefix="/api/v1")
 
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
@@ -81,9 +81,9 @@ async def root():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(
-        "app.main:app",
+        "main:app",
         host="0.0.0.0",
         port=8000,
-        reload=settings.DEBUG,
-        workers=1 if settings.DEBUG else 4
+        reload=True,
+        workers=1
     )
